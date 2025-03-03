@@ -3,6 +3,7 @@
 
 # include <iostream>
 # include <fstream>
+# include <exception>
 
 class Bureaucrat
 {
@@ -21,12 +22,9 @@ public:
 	const std::string&	getName();
 	const unsigned int&	getGrade();
 
-	/*Setters*/
-	//
-
 	/*Constructors*/
 	Bureaucrat(void);
-	Bureaucrat(std::string& name, unsigned int grade);
+	Bureaucrat(std::string name, unsigned int grade);
 	Bureaucrat(const Bureaucrat &src);
 
 	/*Destructors*/
@@ -37,5 +35,22 @@ public:
 };
 
 std::ostream& operator<<(std::ostream &output_stream, Bureaucrat& src);
+
+class GradeTooHighException : public std::exception
+{
+	const char * what () const throw ()
+	{
+		return "This grade is too high";
+	}
+};
+
+class GradeTooLowException : public std::exception
+{
+	const char * what () const throw ()
+	{
+		return "This grade is too low";
+	}
+};
+
 
 #endif
