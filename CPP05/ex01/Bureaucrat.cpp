@@ -10,7 +10,6 @@ void	Bureaucrat::decrementGrade()
 		this->grade++;
 }
 
-
 void	Bureaucrat::incrementGrade()
 {
 	std::cout << "Increment Grade function called for " << this->name << std::endl;
@@ -19,6 +18,27 @@ void	Bureaucrat::incrementGrade()
 	else
 		this->grade--;
 }
+
+void	Bureaucrat::signForm(Form& formToSign)
+{
+	if (formToSign.getStatus() == true)
+		std::cout << this->name << " couldn`t sign form "<< formToSign.getName() << " because it`ve been alredy signed" << std::endl;
+	else
+	{
+		try
+		{
+			formToSign.beSigned(*this);
+			std::cout << "The form "<< formToSign.getName() << " is successfully signed by " << this->name << std::endl;
+		}
+		catch (const std::exception& e)
+		{
+			std::cout << this->name << " couldn`t sign form "<< formToSign.getName() << " because ";
+			std::cerr << e.what() << '\n';
+		}
+	} 
+	//	std::cout << "Bureaucrat couldn`t sign form because their grade is too low" << std::endl;
+}
+
 
 /*Getters*/
 const std::string& Bureaucrat::getName()
@@ -42,7 +62,7 @@ Bureaucrat::Bureaucrat(void)
 
 Bureaucrat::Bureaucrat(std::string name, unsigned int grade)
 {
-	std::cout << "Bureaucrat constructor is called" << std::endl;
+	std::cout << "Bureaucrat constructor is called for " << name << std::endl;
 	if (grade < 1)
 		throw GradeTooHighException();
 	else if (grade > 150)

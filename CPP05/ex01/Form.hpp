@@ -4,7 +4,8 @@
 # include <iostream>
 # include <fstream>
 # include <exception>
-# include "Bureaucrat.hpp"
+
+class Bureaucrat;
 class Form
 {
 private:
@@ -32,5 +33,7 @@ public:
 	/*Operators*/
 	Form &operator=(const Form& src);
 };
+
+std::ostream& operator<<(std::ostream &output_stream, Form& src);
 
 #endif
