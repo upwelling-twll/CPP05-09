@@ -1,6 +1,7 @@
 #include "Bureaucrat.hpp"
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
+#include "PresidentialPardonForm.hpp"
 
 void	test1()
 {
@@ -88,7 +89,7 @@ int main()
 	// test1();
 	Bureaucrat	Vanya("Vanya", 130);
 	std::cout << Vanya;
-	std::cout << "\n* * * * * * * EX02 TEST * * * * * * *" << std::endl;
+	std::cout << "\n			 SHRUBBERY TEST				\n" << std::endl;
 
 	ShrubberyCreationForm other("dacha");
 	std::cout << other;
@@ -137,6 +138,34 @@ int main()
 	try
 	{
 		kotunya.executeForm(robot);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+	std::cout << "\n		PRESIDENTIAL TEST 				\n" << std::endl;
+	PresidentialPardonForm pardon("Marvin");
+	Bureaucrat	trillian("Trillian", 1);
+	std::cout << trillian << std::endl;
+	trillian.signForm(pardon);
+	std::cout << pardon << std::endl;
+	try
+	{
+		trillian.executeForm(pardon);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+	std::cout << std::endl;
+	PresidentialPardonForm nonpardon("Cricket");
+	Bureaucrat	mouse("Mouse", 100);
+	std::cout << nonpardon << std::endl;
+	mouse.signForm(nonpardon);
+	std::cout << mouse << std::endl;
+	try
+	{
+		mouse.executeForm(pardon);
 	}
 	catch(const std::exception& e)
 	{
