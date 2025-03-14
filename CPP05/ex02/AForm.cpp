@@ -31,7 +31,8 @@ AForm::AForm(void) : _name("Default AForm"), _gradeToSign(150), _gradeToExecute(
 	this->_status = false;
 }
 
-AForm::AForm(const std::string name, unsigned int gradeToSign, unsigned int gradeToExecute) :  _name(name), _gradeToSign(gradeToSign), \
+AForm::AForm(const std::string name, unsigned int gradeToSign, \
+	unsigned int gradeToExecute) :  _name(name), _gradeToSign(gradeToSign), \
 	_gradeToExecute(gradeToExecute)
 {
 	std::cout << "AForm constructor is called for " << name << std::endl;

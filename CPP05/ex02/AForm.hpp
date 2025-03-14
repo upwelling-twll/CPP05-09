@@ -13,6 +13,10 @@ private:
 	bool				_status;
 	const unsigned int	_gradeToSign;
 	const unsigned int	_gradeToExecute;
+	
+protected:
+	/*Constructors*/
+	AForm(const std::string name, unsigned int gradeToSign, unsigned int gradeToExecute);
 
 public:
 	/*Member functions*/
@@ -25,7 +29,6 @@ public:
 
 	/*Constructors*/
 	AForm(void);
-	AForm(const std::string name, unsigned int gradeToSign, unsigned int gradeToExecute);
 	AForm(const AForm &src);
 
 	/*Destructors*/

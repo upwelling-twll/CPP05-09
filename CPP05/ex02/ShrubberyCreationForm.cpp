@@ -25,13 +25,15 @@ bool& ShrubberyCreationForm::getStatus()
 
 /*Constructors*/
 
-ShrubberyCreationForm::ShrubberyCreationForm(void) : _name("Default ShrubberyCreationForm"), _gradeToSign(150), _gradeToExecute(150)
-{
+ShrubberyCreationForm::ShrubberyCreationForm(void) : _name("Default ShrubberyCreationForm"), \ 
+	_gradeToSign(150), _gradeToExecute(150)
+{\
 	std::cout << "ShrubberyCreationForm default constructor is called" << std::endl;
 	this->_status = false;
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(const std::string name, unsigned int gradeToSign, unsigned int gradeToExecute) :  _name(name), _gradeToSign(gradeToSign), \
+ShrubberyCreationForm::ShrubberyCreationForm(const std::string name, unsigned int gradeToSign,	\
+	 unsigned int gradeToExecute) :  _name(name), _gradeToSign(gradeToSign), \
 	_gradeToExecute(gradeToExecute)
 {
 	std::cout << "ShrubberyCreationForm constructor is called for " << name << std::endl;
@@ -42,7 +44,8 @@ ShrubberyCreationForm::ShrubberyCreationForm(const std::string name, unsigned in
 	this->_status = false;
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &src) : _name(src._name), _gradeToSign(src._gradeToSign), \
+ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &src) : _name(src._name), \
+ _gradeToSign(src._gradeToSign), \
 	_gradeToExecute(src._gradeToExecute)
 {
 	std::cout << "ShrubberyCreationForm copy constructor is called" << std::endl;
