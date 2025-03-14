@@ -21,6 +21,8 @@ public:
 	/*Getters*/
 	const std::string&	getName();
 	bool&	getStatus();
+	const unsigned int&			getGradeToExecute() const;
+	const unsigned int&			getGradeToSign() const;
 
 	/*Constructors*/
 	Form(void);

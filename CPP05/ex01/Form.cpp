@@ -23,6 +23,16 @@ bool& Form::getStatus()
 	return(this->_status);
 }
 
+const unsigned int& AForm::getGradeToExecute() const 
+{
+	return(this->_gradeToExecute);
+}
+
+const unsigned int& AForm::getGradeToSign() const 
+{
+	return(this->_gradeToSign);
+}
+
 /*Constructors*/
 
 Form::Form(void) : _name("Default form"), _gradeToSign(150), _gradeToExecute(150)
