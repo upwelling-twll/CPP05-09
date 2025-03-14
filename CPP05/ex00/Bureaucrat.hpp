@@ -9,7 +9,7 @@ class Bureaucrat
 {
 protected:
 
-	std::string		name;
+	const std::string		name;
 	unsigned int	grade;
 
 public:
