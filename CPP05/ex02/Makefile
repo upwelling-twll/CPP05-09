@@ -1,6 +1,6 @@
-SRCS	=	main.cpp Bureaucrat.cpp AForm.cpp ShrubberyCreationForm.cpp
+SRCS	=	main.cpp Bureaucrat.cpp AForm.cpp ShrubberyCreationForm.cpp RobotomyRequestForm.cpp
 
-NAME	=	Bureaucrat_and_Form
+NAME	=	Bureaucrat_and_Many_Forms
 
 OBJ	=	$(SRCS:.cpp=.o)
 

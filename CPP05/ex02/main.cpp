@@ -1,5 +1,6 @@
 #include "Bureaucrat.hpp"
 #include "ShrubberyCreationForm.hpp"
+#include "RobotomyRequestForm.hpp"
 
 void	test1()
 {
@@ -118,7 +119,7 @@ int main()
 	// std::cout << std::endl;
 	// std::cout << other << std::endl;;
 
-	Bureaucrat	kotunya("Barsik", 150);
+	Bureaucrat	kotunya("Barsik", 10);
 	std::cout << kotunya << std::endl;
 	try
 	{
@@ -128,4 +129,18 @@ int main()
 	{
 		std::cerr << e.what() << '\n';
 	}
+	std::cout << "\n		ROBOTOMY TEST 				\n" << std::endl;
+	RobotomyRequestForm robot("Mars");
+	std::cout << robot << std::endl;
+	std::cout << std::endl;
+	kotunya.signForm(robot);
+	try
+	{
+		kotunya.executeForm(robot);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+	std::cout << std::endl;
 }
