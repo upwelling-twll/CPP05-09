@@ -2,77 +2,87 @@
 #include "Bureaucrat.hpp"
 
 /*Member functions*/
-void	ShrubberyCreationForm::beSigned(Bureaucrat& bureaucrat)
+bool ShrubberyCreationForm::execute(Bureaucrat const & executor) const
 {
-	if (bureaucrat.getGrade() <= this->_gradeToSign)
+	if (getStatus() == false)
+		throw FormIsNotSigned();
+	if (executor.getGrade() >= getGradeToExecute())
+		throw ExecutorGradeTooLow();
+	std::string filename = this->_target + "_shrubbery";
+	std::ofstream 	file(filename);
+	if (!file.is_open())
 	{
-		this->_status = true;
-	}
+        std::cerr << "Error opening file: " << filename << std::endl;
+        throw ShrubberyFileError();
+    }
 	else
-		throw GradeTooLowException();
+	{
+		file << "       _-_" << std::endl;
+        file << "    /~~   ~~\\" << std::endl;
+        file << " /~~         ~~\\" << std::endl;
+        file << "{               }" << std::endl;
+        file << " \\  _-     -_  /" << std::endl;
+        file << "   ~  \\ //  ~" << std::endl;
+        file << "       ||" << std::endl;
+        file << "       ||" << std::endl;
+        file << "       ||" << std::endl;
+        file.close();
+		return (true);
+	}
+	return (false);
 }
 
-/*Getters*/
-const std::string& ShrubberyCreationForm::getName()
+/*Getters and Setters*/
+std::string &ShrubberyCreationForm::getTarget()
 {
-	return(this->_name);
-}
-
-bool& ShrubberyCreationForm::getStatus()
-{
-	return(this->_status);
+	return (this->_target);
 }
 
 /*Constructors*/
 
-ShrubberyCreationForm::ShrubberyCreationForm(void) : _name("Default ShrubberyCreationForm"), \ 
-	_gradeToSign(150), _gradeToExecute(150)
-{\
-	std::cout << "ShrubberyCreationForm default constructor is called" << std::endl;
-	this->_status = false;
-}
-
-ShrubberyCreationForm::ShrubberyCreationForm(const std::string name, unsigned int gradeToSign,	\
-	 unsigned int gradeToExecute) :  _name(name), _gradeToSign(gradeToSign), \
-	_gradeToExecute(gradeToExecute)
+ShrubberyCreationForm::ShrubberyCreationForm(void) : AForm("ShrubberyCreationForm", 145, 137)
 {
-	std::cout << "ShrubberyCreationForm constructor is called for " << name << std::endl;
-	if (_gradeToSign < 1 || _gradeToExecute < 1)
-		throw GradeTooHighException();
-	else if (_gradeToSign > 150 || _gradeToExecute > 150)
-		throw GradeTooLowException();
-	this->_status = false;
+	std::cout << "ShrubberyCreationForm default constructor is called" << std::endl;
+	this->_target = "Default_Shrubbery_target";
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &src) : _name(src._name), \
- _gradeToSign(src._gradeToSign), \
-	_gradeToExecute(src._gradeToExecute)
+ShrubberyCreationForm::ShrubberyCreationForm( std::string target) : AForm("ShrubberyCreationForm", 145, 137)
+{
+	std::cout << "ShrubberyCreationForm constructor is called" << std::endl;
+	this->_target = target;
+}
+
+ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &src) : AForm(src)
 {
 	std::cout << "ShrubberyCreationForm copy constructor is called" << std::endl;
-	this->_status = src._status;
+	this->_target = src._target;
 }
 
 /*Destructors*/
 
 ShrubberyCreationForm::~ShrubberyCreationForm( void )
 {
-	std::cout << "ShrubberyCreationForm destructor is called for " << this->_name << std::endl;
+	std::cout << "ShrubberyCreationForm destructor is called for " << this->getName() << std::endl;
 }
 
 /*Operators*/
 
 std::ostream& operator<<(std::ostream& output_stream, ShrubberyCreationForm& src)
 {
-	output_stream << src.getName() << ", ShrubberyCreationForm status " << src.getStatus();
+	output_stream << "\n*******Form_Info************\n" \
+	 << src.getName() << ", status " << src.getStatus() \
+	 << "\ngradeToSign:" << src.getGradeToSign() << "\ngradeToExecute:" << src.getGradeToExecute() \
+	 <<  "\nTarget: " << src.getTarget() << "\n****************************" << std::endl;
 	return output_stream;
 }
 
 ShrubberyCreationForm&	ShrubberyCreationForm::operator=(const ShrubberyCreationForm& src)
 {
-	std::cout << "ShrubberyCreationForm copy assignment is called for " << src._name << std::endl;
+	std::cout << "ShrubberyCreationForm copy assignment is called for ShrubberyCreationForm " << std::endl;
 	if (this != &src)
 	{
-		this->_status = src._status;
+		AForm::operator=(src);
+		this->_target = src._target;
 	}
 	return (*this);
 }

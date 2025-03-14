@@ -1,6 +1,7 @@
 #include "Bureaucrat.hpp"
+#include "ShrubberyCreationForm.hpp"
 
-int main()
+void	test1()
 {
 	Bureaucrat	Vanya("Vanya", 150);
 	Bureaucrat	Sveta("Sveta", 10);
@@ -45,38 +46,86 @@ int main()
 	}
 	Bureaucrat	Borboskin("Borboskin", 130);
 
-	std::cout<<"\nFORMS TEST"<<std::endl;
-	Form FirstForm("Spread kindness", 100, 100);
-	std::cout << FirstForm << std::endl;
-	Borboskin.signForm(FirstForm);
-	std::cout << FirstForm << std::endl;
-	Sveta.signForm(FirstForm);
-	std::cout << FirstForm << std::endl;
-	try
-	{
-		Borboskin.signForm(FirstForm);
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr << e.what() << '\n';
-	}
+	// std::cout<<"\nFORMS TEST"<<std::endl;
+	// AForm FirstForm("Spread kindness", 100, 100);
+	// std::cout << FirstForm << std::endl;
+	// Borboskin.signForm(FirstForm);
+	// std::cout << FirstForm << std::endl;
+	// Sveta.signForm(FirstForm);
+	// std::cout << FirstForm << std::endl;
+	// try
+	// {
+	// 	Borboskin.signForm(FirstForm);
+	// }
+	// catch(const std::exception& e)
+	// {
+	// 	std::cerr << e.what() << '\n';
+	// }
 	
-	std::cout << "\nANOTHER TEST" << std::endl;
+	// std::cout << "\nANOTHER TEST" << std::endl;
+	// try
+	// {
+	// 	AForm MostSecretForm("!!!TOP SECRET!!!", 0, 0);
+	// }
+	// catch(const std::exception& e)
+	// {
+	// 	std::cerr << e.what() << '\n';
+	// }
+	// AForm MostSecretForm("!!!TOP SECRET!!!", 1, 1);
+	// std::cout << MostSecretForm << std::endl;
+	// Borboskin.signForm( MostSecretForm);
+	// std::cout << MostSecretForm << std::endl;
+	// Bureaucrat SuperCat("Barsik", 1);
+	// SuperCat.signForm(MostSecretForm);
+	// std::cout << MostSecretForm << std::endl;
+	// Bureaucrat Stranger("Reptilian Humonoid", 1);
+	// Stranger.signForm(MostSecretForm);
+}
+
+int main()
+{
+	// test1();
+	Bureaucrat	Vanya("Vanya", 130);
+	std::cout << Vanya;
+	std::cout << "\n* * * * * * * EX02 TEST * * * * * * *" << std::endl;
+
+	ShrubberyCreationForm other("dacha");
+	std::cout << other;
+	std::cout << std::endl;
+
+	std::cout << std::endl;
+	try 
+	{
+		Vanya.executeForm(other);
+	}
+	catch (const std::exception& e)
+	{
+		std::cerr << e.what() << std::endl;
+	}
+
+	std::cout << std::endl;
+	std::cout << other;
+	std::cout << std::endl;
+
+	Vanya.signForm(other);
+	std::cout << std::endl;
+	// Vanya.executeForm(other);
+	// std::cout << std::endl;
+	// std::cout << other;
+
+	// std::cout << std::endl;
+	// Vanya.executeForm(other);
+	// std::cout << std::endl;
+	// std::cout << other << std::endl;;
+
+	Bureaucrat	kotunya("Barsik", 150);
+	std::cout << kotunya << std::endl;
 	try
 	{
-		Form MostSecretForm("!!!TOP SECRET!!!", 0, 0);
+		kotunya.executeForm(other);
 	}
 	catch(const std::exception& e)
 	{
 		std::cerr << e.what() << '\n';
 	}
-	Form MostSecretForm("!!!TOP SECRET!!!", 1, 1);
-	std::cout << MostSecretForm << std::endl;
-	Borboskin.signForm( MostSecretForm);
-	std::cout << MostSecretForm << std::endl;
-	Bureaucrat SuperCat("Barsik", 1);
-	SuperCat.signForm(MostSecretForm);
-	std::cout << MostSecretForm << std::endl;
-	Bureaucrat Stranger("Reptilian Humonoid", 1);
-	Stranger.signForm(MostSecretForm);
 }

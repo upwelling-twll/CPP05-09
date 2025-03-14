@@ -7,19 +7,20 @@ class Bureaucrat;
 
 class ShrubberyCreationForm : public AForm
 {
+	private:
+	std::string	_target;
 
-public:
+	public:
 
 	/*Member functions*/
-	void		execute(Bureaucrat const & executor) const override;
+	bool		execute(Bureaucrat const & executor) const;
 
-	/*Getters*/
-	const std::string&	getName();
-	bool&				getStatus();
+	/*Getters and Setters*/
+	std::string &getTarget();
 
 	/*Constructors*/
 	ShrubberyCreationForm(void);
-	ShrubberyCreationForm(const std::string name, unsigned int gradeToSign, unsigned int gradeToExecute);
+	ShrubberyCreationForm(std::string target);
 	ShrubberyCreationForm(const ShrubberyCreationForm &src);
 
 	/*Destructors*/
@@ -30,5 +31,24 @@ public:
 };
 
 std::ostream& operator<<(std::ostream &output_stream, ShrubberyCreationForm& src);
+
+class ShrubberyCreationException : public AFormException
+{
+public:
+    const char* what() const throw()
+    {
+        return "ShrubberyCreationForm Exception occurred!";
+    }
+};
+
+// Specific exception for file error in ShrubberyCreationForm
+class ShrubberyFileError : public ShrubberyCreationException
+{
+public:
+    const char* what() const throw()
+    {
+        return "Error creating the shrubbery file!";
+    }
+};
 
 #endif

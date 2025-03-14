@@ -17,19 +17,19 @@ private:
 protected:
 	/*Constructors*/
 	AForm(const std::string name, unsigned int gradeToSign, unsigned int gradeToExecute);
+	AForm(void);
+	AForm(const AForm &src);
 
 public:
 	/*Member functions*/
 	void				beSigned(Bureaucrat& bureaucrat);
-	virtual void		execute(Bureaucrat const & executor) const = 0;
+	virtual bool		execute(Bureaucrat const & executor) const = 0;
 
 	/*Getters*/
-	const std::string&	getName();
-	bool&				getStatus();
-
-	/*Constructors*/
-	AForm(void);
-	AForm(const AForm &src);
+	const std::string&	getName() const;
+	const bool&			getStatus() const;
+	const unsigned int&			getGradeToExecute() const;
+	const unsigned int&			getGradeToSign() const;
 
 	/*Destructors*/
 	virtual ~AForm( void );
@@ -39,5 +39,32 @@ public:
 };
 
 std::ostream& operator<<(std::ostream &output_stream, AForm& src);
+
+class AFormException : public std::exception
+{
+public:
+    virtual const char* what() const throw()
+    {
+        return "AForm Exception occurred!";
+    }
+};
+
+class FormIsNotSigned : public AFormException
+{
+public:
+    const char* what() const throw()
+    {
+        return "Form is not signed!";
+    }
+};
+
+class ExecutorGradeTooLow : public AFormException
+{
+public:
+    const char* what() const throw()
+    {
+        return "Executor's grade is too low to execute the form!";
+    }
+};
 
 #endif

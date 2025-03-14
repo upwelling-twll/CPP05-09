@@ -7,20 +7,31 @@ void	AForm::beSigned(Bureaucrat& bureaucrat)
 	if (bureaucrat.getGrade() <= this->_gradeToSign)
 	{
 		this->_status = true;
-	}
+		std::cout << "Form " << this->_name << " is signed by " << bureaucrat.getName() << std::endl;
+ 	}
 	else
 		throw GradeTooLowException();
 }
 
 /*Getters*/
-const std::string& AForm::getName()
+const std::string& AForm::getName() const
 {
 	return(this->_name);
 }
 
-bool& AForm::getStatus()
+const bool& AForm::getStatus() const 
 {
 	return(this->_status);
+}
+
+const unsigned int& AForm::getGradeToExecute() const 
+{
+	return(this->_gradeToExecute);
+}
+
+const unsigned int& AForm::getGradeToSign() const 
+{
+	return(this->_gradeToSign);
 }
 
 /*Constructors*/
@@ -61,7 +72,10 @@ AForm::~AForm( void )
 
 std::ostream& operator<<(std::ostream& output_stream, AForm& src)
 {
-	output_stream << src.getName() << ", AForm status " << src.getStatus();
+	output_stream << "\n*******Form_Info************\n" \
+	 << src.getName() << ", status " << src.getStatus() \
+	 << "\ngradeToSign:" << src.getGradeToSign() << "\ngradeToExecute:" << src.getGradeToExecute() \
+	 << "\n****************************" << std::endl;
 	return output_stream;
 }
 

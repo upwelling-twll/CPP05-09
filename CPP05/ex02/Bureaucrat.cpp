@@ -19,7 +19,7 @@ void	Bureaucrat::incrementGrade()
 		this->grade--;
 }
 
-void	Bureaucrat::signForm(Form& formToSign)
+void	Bureaucrat::signForm(AForm& formToSign)
 {
 	if (formToSign.getStatus() == true)
 		std::cout << this->name << " couldn`t sign form "<< formToSign.getName() << " because it`ve been alredy signed" << std::endl;
@@ -28,7 +28,7 @@ void	Bureaucrat::signForm(Form& formToSign)
 		try
 		{
 			formToSign.beSigned(*this);
-			std::cout << "The form "<< formToSign.getName() << " is successfully signed by " << this->name << std::endl;
+			std::cout << "Bureaucrat "<< this->name << " successfully signed " << formToSign.getName() << std::endl;
 		}
 		catch (const std::exception& e)
 		{
@@ -39,6 +39,13 @@ void	Bureaucrat::signForm(Form& formToSign)
 	//	std::cout << "Bureaucrat couldn`t sign form because their grade is too low" << std::endl;
 }
 
+void	Bureaucrat::executeForm(AForm const & form)
+{
+	if (form.execute(*this))
+		std::cout << "Bureaucrat " << this->name << " executed " << form.getName() << std::endl;
+	else
+		std::cout << "Bureaucrat " << this->name << " did not seceed executing " << form.getName() << std::endl;
+}
 
 /*Getters*/
 const std::string& Bureaucrat::getName()
@@ -46,7 +53,7 @@ const std::string& Bureaucrat::getName()
 	return(this->name);
 }
 
-const unsigned int& Bureaucrat::getGrade()
+const unsigned int& Bureaucrat::getGrade() const
 {
 	return(this->grade);
 }

@@ -4,7 +4,7 @@
 # include <iostream>
 # include <fstream>
 # include <exception>
-# include "Form.hpp"
+# include "AForm.hpp"
 
 class Bureaucrat
 {
@@ -18,11 +18,12 @@ public:
 	/*Member functions*/
 	void	incrementGrade();
 	void	decrementGrade();
-	void	signForm(Form& formToSign);
+	void	signForm(AForm& formToSign);
+	void	executeForm(AForm const & form);
 
 	/*Getters*/
 	const std::string&	getName();
-	const unsigned int&	getGrade();
+	const unsigned int&	getGrade() const;
 
 	/*Constructors*/
 	Bureaucrat(void);

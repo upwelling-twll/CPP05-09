@@ -1,4 +1,4 @@
-SRCS	=	main.cpp Bureaucrat.cpp AForm.cpp
+SRCS	=	main.cpp Bureaucrat.cpp AForm.cpp ShrubberyCreationForm.cpp
 
 NAME	=	Bureaucrat_and_Form
 

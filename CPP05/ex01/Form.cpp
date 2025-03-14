@@ -60,7 +60,10 @@ Form::~Form( void )
 
 std::ostream& operator<<(std::ostream& output_stream, Form& src)
 {
-	output_stream << src.getName() << ", Form status " << src.getStatus();
+	output_stream << "\n*******Form_Info************\n" \
+	 << src.getName() << ", status " << src.getStatus() \
+	 << "\ngradeToSign:" << src.getGradeToSign() << "\ngradeToExecute:" << src.getGradeToExecute() \
+	 << "\n****************************" << std::endl;
 	return output_stream;
 }
 
