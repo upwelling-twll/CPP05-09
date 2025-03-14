@@ -23,12 +23,12 @@ bool& Form::getStatus()
 	return(this->_status);
 }
 
-const unsigned int& AForm::getGradeToExecute() const 
+const unsigned int& Form::getGradeToExecute() const 
 {
 	return(this->_gradeToExecute);
 }
 
-const unsigned int& AForm::getGradeToSign() const 
+const unsigned int& Form::getGradeToSign() const 
 {
 	return(this->_gradeToSign);
 }
