@@ -164,6 +164,7 @@ int main()
 	std::cout << nonpardon << std::endl;
 	mouse.signForm(nonpardon);
 	std::cout << mouse << std::endl;
+	
 	try
 	{
 		mouse.executeForm(pardon);
@@ -176,7 +177,7 @@ int main()
 
 	std::cout << "\n		INTERN TEST 				\n" << std::endl;
 	Intern	someAlien;
-
+	AForm *newForm = (someAlien.makeForm("presidential pardon", "Moon"));
 	trillian.signForm(someAlien.makeForm("presidential pardon", "Moon"));
 	std::cout << std::endl;
 }

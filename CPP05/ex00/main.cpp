@@ -5,6 +5,17 @@ int main()
 	Bureaucrat	Vanya("Vanya", 150);
 	Bureaucrat	Sveta("Sveta", 10);
 
+	std::cout<<std::endl;
+	try
+	{
+		Bureaucrat Fred("Fred", 0);
+		std::cout<<Fred<<std::endl;
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << std::endl;
+	}
+	std::cout<<std::endl;
 	try
 	{
 		Sveta.incrementGrade();

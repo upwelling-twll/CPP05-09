@@ -21,7 +21,7 @@ public:
 	void	signForm(Form& formToSign);
 
 	/*Getters*/
-	const std::string&	getName();
+	const std::string&	getName() const;
 	const unsigned int&	getGrade();
 
 	/*Constructors*/

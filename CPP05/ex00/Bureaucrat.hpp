@@ -10,7 +10,7 @@ class Bureaucrat
 protected:
 
 	const std::string		name;
-	unsigned int	grade;
+	unsigned int			grade;
 
 public:
 
@@ -19,7 +19,7 @@ public:
 	void	decrementGrade();
 
 	/*Getters*/
-	const std::string&	getName();
+	const std::string&	getName() const;
 	const unsigned int&	getGrade();
 
 	/*Constructors*/

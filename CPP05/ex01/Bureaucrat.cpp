@@ -41,7 +41,7 @@ void	Bureaucrat::signForm(Form& formToSign)
 
 
 /*Getters*/
-const std::string& Bureaucrat::getName()
+const std::string& Bureaucrat::getName() const
 {
 	return(this->name);
 }
@@ -53,21 +53,19 @@ const unsigned int& Bureaucrat::getGrade()
 
 /*Constructors*/
 
-Bureaucrat::Bureaucrat(void)
+Bureaucrat::Bureaucrat(void) :name("Default name")
 {
 	std::cout << "Bureaucrat default constructor is called" << std::endl;
-	this->name = "Default name";
 	this->grade = 150;
 }
 
-Bureaucrat::Bureaucrat(std::string name, unsigned int grade)
+Bureaucrat::Bureaucrat(std::string name, unsigned int grade) : name(name)
 {
 	std::cout << "Bureaucrat constructor is called for " << name << std::endl;
 	if (grade < 1)
 		throw GradeTooHighException();
 	else if (grade > 150)
 		throw GradeTooLowException();
-	this->name = name;
 	this->grade = grade;
 }
 
@@ -97,7 +95,6 @@ Bureaucrat&	Bureaucrat::operator=(const Bureaucrat& src)
 	std::cout << "Bureaucrat copy assignment is called for " << src.name << std::endl;
 	if (this != &src)
 	{
-		this->name = src.name;
 		this->grade = src.grade;
 	}
 	return (*this);

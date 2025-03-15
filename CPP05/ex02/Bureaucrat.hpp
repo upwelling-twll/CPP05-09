@@ -22,7 +22,7 @@ public:
 	void	executeForm(AForm const & form);
 
 	/*Getters*/
-	const std::string&	getName();
+	const std::string&	getName() const;
 	const unsigned int&	getGrade() const;
 
 	/*Constructors*/
