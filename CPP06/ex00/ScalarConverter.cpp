@@ -1,9 +1,39 @@
 #include "ScalarConverter.hpp"
 
 /*Member functions*/
-void ScalarConverter::method()
+
+void ScalarConverter::convert(std::string input)
 {
-    // Method implementation
+	switch (check_type)
+	{
+		case 1:
+		{
+			convertChar();
+			break;
+		}
+		case 2:
+		{
+			convertInt();
+			break;
+		}
+		case 3:
+		{
+			convertFloat();
+			break;
+		}
+		case 4:
+		{
+			convertDouble();
+			break;
+		}
+		case 5:
+		{
+			convertPseudoLiteral();
+			break;
+		}
+		default:
+			break;
+	}
 }
 
 /*Getters and Setters*/

@@ -10,13 +10,13 @@ private:
 
 public:
 	/*Member functions*/
-    void method();
+    static void convert(std::string input);
 
 	/*Getters and Setters*/
 
 	/*Constructors*/
-    ScalarConverter(/*Parameterized Constructor*/);
-	ScalarConverter(void);
+    ScalarConverter(/*Parameterized Constructor*/) = delete;
+	ScalarConverter(void) = delete;
 
 	/*Destructors*/
     ~ScalarConverter( void );
