@@ -22,10 +22,12 @@ bool	validInput(std::string str)
 		return (false);
 	if (countOccurence(str, '+') > 1 || countOccurence(str, '-') > 1 || countOccurence(str, '.') > 1)
 		return (false);
+	if (str == "nan")
+		return (true);
 	for (char c : str)
 	{
-		if (!std::isalpha(c))
-			++alph;
+		if (std::isalpha(c))
+			alph++;
 		if (alph > 1)
 			return (false);
 	}
@@ -34,9 +36,14 @@ bool	validInput(std::string str)
 
 bool	convertToChar(std::string str)
 {
-	int	i;
+	int		i;
 	std::string	allowedSymbols = "0123456789f.+-";
 
+	if (str.length() == 1 &&  std::isalpha(str.front()))
+	{
+		std::cout << str.front() << std::endl;
+		return (true);
+	}
 	if (str.find_first_not_of(allowedSymbols) != std::string::npos)
 		return (false);
 	i = stoi(str);
@@ -44,7 +51,62 @@ bool	convertToChar(std::string str)
 		std::cout << static_cast<char>(i) << std::endl;
 	else
 		std::cout << "Non displayable" << std::endl;
+}
 
+bool	convertToInt(std::string str)
+{
+	int	i;
+	std::string	allowedSymbols = "0123456789f.+-";
+
+	if (str.find_first_not_of(allowedSymbols) != std::string::npos)
+		return (false);
+	i = stoll(str);
+	if (i > 2147483647 || i < -2147483648)
+		return (false);
+	else
+		std::cout << static_cast<int>(i) << std::endl;
+}
+
+bool	hasDigit(std::string str)
+{
+	for (char c : str)
+	{
+		if (std::isdigit(c))
+			return (true);
+	}
+	return (false);
+}
+
+bool	convertToFloat(std::string str)
+{
+	int	i;
+	std::string			allowedSymbols = "0123456789f.+-";
+	std::stringstream	ss(str);
+	float				num;
+
+	if (str == "+inff" || str == "-inff")
+	{
+		std::cout << str << std::endl;
+		return (true);
+	}
+	if (str == "+inf" || str == "-inf" || str == "nan")
+	{
+		std::cout << str + "f" << std::endl;
+		return (true);
+	}
+	if (str.find_first_not_of(allowedSymbols) != std::string::npos)
+		return (false);
+	if (str.back() == 'f' && str.length() > 1 && hasDigit(str))
+	{	
+		std::cout << str << std::endl;
+		return (true);
+	}
+	ss >> num;
+	if (ss.fail())
+		return (false);
+	else
+		std::cout << num << std::endl;
+	return (true);
 }
 
 void ScalarConverter::convert(std::string input)
@@ -56,10 +118,10 @@ void ScalarConverter::convert(std::string input)
 	}
 	if (!convertToChar(input))
 		std::cout << "Impossible" << std::endl;
-	// if (!convertToInt(input))
-	// 	std::cout << "Impossible to convert to int" << std::endl;
-	// if (!convertToFloat(input))
-	// 	std::cout << "Impossible to convert to float" << std::endl;
+	if (!convertToInt(input))
+		std::cout << "Impossible" << std::endl;
+	if (!convertToFloat(input))
+		std::cout << "Impossible to convert to float" << std::endl;
 	// if (!convertToDouble(input))
 	// 	std::cout << "Impossible to convert to double" << std::endl;
 }
