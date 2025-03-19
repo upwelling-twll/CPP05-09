@@ -1,39 +1,67 @@
 #include "ScalarConverter.hpp"
 
 /*Member functions*/
+int	countOccurence(std::string str, char symbol)
+{
+	int count = 0;
+
+    for (char c : str) 
+	{
+        if (c == symbol) 
+            ++count;
+    }
+    return count;
+}
+
+bool	validInput(std::string str)
+{
+	std::string	allowedSymbols = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.+-";
+	int			alph = 0;
+
+	if (str.find_first_not_of(allowedSymbols) != std::string::npos)
+		return (false);
+	if (countOccurence(str, '+') > 1 || countOccurence(str, '-') > 1 || countOccurence(str, '.') > 1)
+		return (false);
+	for (char c : str)
+	{
+		if (!std::isalpha(c))
+			++alph;
+		if (alph > 1)
+			return (false);
+	}
+	return (true);
+}
+
+bool	convertToChar(std::string str)
+{
+	int	i;
+	std::string	allowedSymbols = "0123456789f.+-";
+
+	if (str.find_first_not_of(allowedSymbols) != std::string::npos)
+		return (false);
+	i = stoi(str);
+	if (i > 32  && i < 127)
+		std::cout << static_cast<char>(i) << std::endl;
+	else
+		std::cout << "Non displayable" << std::endl;
+
+}
 
 void ScalarConverter::convert(std::string input)
 {
-	switch (check_type)
+	if (!validInput(input));
 	{
-		case 1:
-		{
-			convertChar();
-			break;
-		}
-		case 2:
-		{
-			convertInt();
-			break;
-		}
-		case 3:
-		{
-			convertFloat();
-			break;
-		}
-		case 4:
-		{
-			convertDouble();
-			break;
-		}
-		case 5:
-		{
-			convertPseudoLiteral();
-			break;
-		}
-		default:
-			break;
+		std::cout << "Invalid input" << std::endl;
+		return ;
 	}
+	if (!convertToChar(input))
+		std::cout << "Impossible" << std::endl;
+	// if (!convertToInt(input))
+	// 	std::cout << "Impossible to convert to int" << std::endl;
+	// if (!convertToFloat(input))
+	// 	std::cout << "Impossible to convert to float" << std::endl;
+	// if (!convertToDouble(input))
+	// 	std::cout << "Impossible to convert to double" << std::endl;
 }
 
 /*Getters and Setters*/
