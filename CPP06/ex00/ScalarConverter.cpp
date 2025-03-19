@@ -109,6 +109,32 @@ bool	convertToFloat(std::string str)
 	return (true);
 }
 
+bool	convertToDouble(std::string str)
+{
+	std::string			allowedSymbols = "0123456789f.+-";
+	std::stringstream	ss(str);
+	double				num;
+
+	if (str == "+inf" || str == "-inf" || str == "nan")
+	{
+		std::cout << str << std::endl;
+		return (true);
+	}
+	if (str == "+inff" || str == "-inff")
+	{
+		std::cout << str.substr(0, str.length() - 1) << std::endl;
+		return (true);
+	}
+	if (str.find_first_not_of(allowedSymbols) != std::string::npos)
+		return (false);
+	ss >> num;
+	if (ss.fail())
+		return (false);
+	else
+		std::cout << num << std::endl;
+	return (true);
+}
+
 void ScalarConverter::convert(std::string input)
 {
 	if (!validInput(input));
@@ -121,9 +147,9 @@ void ScalarConverter::convert(std::string input)
 	if (!convertToInt(input))
 		std::cout << "Impossible" << std::endl;
 	if (!convertToFloat(input))
-		std::cout << "Impossible to convert to float" << std::endl;
-	// if (!convertToDouble(input))
-	// 	std::cout << "Impossible to convert to double" << std::endl;
+		std::cout << "Impossible" << std::endl;
+	if (!convertToDouble(input))
+		std::cout << "Impossible" << std::endl;
 }
 
 /*Getters and Setters*/
