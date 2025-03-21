@@ -1,6 +1,16 @@
 #include "ScalarConverter.hpp"
 
 /*Member functions*/
+bool	hasDigit(std::string str)
+{
+	
+    for (size_t i = 0; i < str.length(); ++i)
+	{
+		if (std::isdigit(str[i]))
+			return (true);
+	}
+	return (false);
+}
 int	countOccurence(std::string str, char symbol)
 {
 	int count = 0;
@@ -9,6 +19,23 @@ int	countOccurence(std::string str, char symbol)
 	{
         if (str[i] == symbol) 
             ++count;
+    }
+	return (count);
+}
+
+int	countStrOccurence(std::string str1, std::string str2)
+{
+	int count = 0;
+
+   for (std::string::const_iterator it1 = str1.begin(); it1 != str1.end(); ++it1)
+   {
+        for (std::string::const_iterator it2 = str2.begin(); it2 != str2.end(); ++it2)
+		{
+            if (*it1 == *it2)
+			{
+                count++;
+            }
+        }
     }
 	return (count);
 }
@@ -60,33 +87,56 @@ bool	convertToInt(std::string str)
 	long long	i;
 	std::string	allowedSymbols = "0123456789f.+-";
 
-	if (str.find_first_not_of(allowedSymbols) != std::string::npos)
+	if (countStrOccurence(str, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ") > 1)
+	{
+		std::cout << "Inaceptable symbols for this type" << std::endl;
 		return (false);
+	}
 	std::stringstream ss(str);
 	ss >> i;
 	if (i > 2147483647 || i < -2147483648)
 		return (false);
 	else
-		std::cout << static_cast<int>(i) << std::endl;
+		std::cout << i << std::endl;
 	return (true);
 }
 
-bool	hasDigit(std::string str)
+bool	hasZeroAfterPoint(float num)
 {
-	
-    for (size_t i = 0; i < str.length(); ++i)
-	{
-		if (std::isdigit(str[i]))
-			return (true);
-	}
-	return (false);
+	int	intNum;
+
+	intNum = static_cast<int>(num);
+	if (num == intNum)
+		return (false);
+	else
+		return (true);
+}
+
+int	digitsAfterPoint(std::string str, float num)
+{
+	int 	count = 0;
+	bool	afterPoint = false;
+
+   for (std::string::const_iterator it = str.begin(); it != str.end() ; ++it)
+   {
+		if (*it == '.')
+			afterPoint = true;
+        if (afterPoint)
+			count++;
+    }
+	if (num > -1 && num < 1)
+		return (0);
+	return (count);
 }
 
 bool	convertToFloat(std::string str)
 {
 	std::string			allowedSymbols = "0123456789f.+-";
 	std::stringstream	ss(str);
-	float				num;
+	// float				num;
+	float				num = 0.0f;
+	// float				minf = std::numeric_limits<float>::min();
+	// float				maxf = std::numeric_limits<float>::max();
 
 	if (str == "+inff" || str == "-inff")
 	{
@@ -99,17 +149,33 @@ bool	convertToFloat(std::string str)
 		return (true);
 	}
 	if (str.find_first_not_of(allowedSymbols) != std::string::npos)
+	{
+		std::cout << "Inaceptable symbol" << std::endl;
 		return (false);
+	}
 	if (str[str.length()] == 'f' && str.length() > 1 && hasDigit(str))
 	{	
 		std::cout << str << std::endl;
 		return (true);
 	}
+
+	// num =  std::atof(str.c_str());
+	// if (num < minf || num > maxf)
+	// 	return (false);
+	// if (std::fabs(num - static_cast<int>(num)) < 0.0000000000001)
+	// 	std::cout << num << ".0f" << std::endl;
+	// else
+	// 	std::cout << num << 'f' << std::endl;
+
 	ss >> num;
 	if (ss.fail())
 		return (false);
+	// if (num < minf || num > maxf)
+	// 	return (false);
+	if ((countOccurence(str, '.') == 1 && hasZeroAfterPoint(num) && digitsAfterPoint(str, num) <= 7))
+		std::cout << num << 'f' << std::endl;
 	else
-		std::cout << num << std::endl;
+		std::cout << num << ".0f" << std::endl;
 	return (true);
 }
 

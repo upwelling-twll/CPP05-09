@@ -4,6 +4,9 @@
 # include <iostream>
 # include <string>
 # include <sstream>
+# include <cmath>
+# include <limits>
+# include <cstdlib>
 
 class ScalarConverter
 {
@@ -17,8 +20,8 @@ public:
 	/*Getters and Setters*/
 
 	/*Constructors*/
-    // ScalarConverter(/*Parameterized Constructor*/) = delete;
-	// ScalarConverter(void) = delete;
+    // ScalarConverter(/*Parameterized Constructor*/);
+	// ScalarConverter(void);
 
 	/*Destructors*/
     ~ScalarConverter( void );
