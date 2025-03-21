@@ -2,6 +2,7 @@
 # define SCALARCONVERTER_HPP
 
 # include <iostream>
+# include <string>
 # include <sstream>
 
 class ScalarConverter
@@ -16,8 +17,8 @@ public:
 	/*Getters and Setters*/
 
 	/*Constructors*/
-    ScalarConverter(/*Parameterized Constructor*/) = delete;
-	ScalarConverter(void) = delete;
+    // ScalarConverter(/*Parameterized Constructor*/) = delete;
+	// ScalarConverter(void) = delete;
 
 	/*Destructors*/
     ~ScalarConverter( void );

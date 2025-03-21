@@ -5,12 +5,12 @@ int	countOccurence(std::string str, char symbol)
 {
 	int count = 0;
 
-    for (char c : str) 
+    for (size_t i = 0; i < str.length(); ++i)
 	{
-        if (c == symbol) 
+        if (str[i] == symbol) 
             ++count;
     }
-    return count;
+	return (count);
 }
 
 bool	validInput(std::string str)
@@ -24,9 +24,9 @@ bool	validInput(std::string str)
 		return (false);
 	if (str == "nan")
 		return (true);
-	for (char c : str)
+	for (size_t i = 0; i < str.length(); ++i)
 	{
-		if (std::isalpha(c))
+		if (std::isalpha(str[i])) 
 			alph++;
 		if (alph > 1)
 			return (false);
@@ -39,39 +39,44 @@ bool	convertToChar(std::string str)
 	int		i;
 	std::string	allowedSymbols = "0123456789f.+-";
 
-	if (str.length() == 1 &&  std::isalpha(str.front()))
+	if (str.length() == 1 &&  std::isalpha(str[0]))
 	{
-		std::cout << str.front() << std::endl;
+		std::cout << str[0] << std::endl;
 		return (true);
 	}
 	if (str.find_first_not_of(allowedSymbols) != std::string::npos)
 		return (false);
-	i = stoi(str);
+	std::stringstream ss(str);
+	ss >> i;
 	if (i > 32  && i < 127)
 		std::cout << static_cast<char>(i) << std::endl;
 	else
 		std::cout << "Non displayable" << std::endl;
+	return (true);
 }
 
 bool	convertToInt(std::string str)
 {
-	int	i;
+	long long	i;
 	std::string	allowedSymbols = "0123456789f.+-";
 
 	if (str.find_first_not_of(allowedSymbols) != std::string::npos)
 		return (false);
-	i = stoll(str);
+	std::stringstream ss(str);
+	ss >> i;
 	if (i > 2147483647 || i < -2147483648)
 		return (false);
 	else
 		std::cout << static_cast<int>(i) << std::endl;
+	return (true);
 }
 
 bool	hasDigit(std::string str)
 {
-	for (char c : str)
+	
+    for (size_t i = 0; i < str.length(); ++i)
 	{
-		if (std::isdigit(c))
+		if (std::isdigit(str[i]))
 			return (true);
 	}
 	return (false);
@@ -79,7 +84,6 @@ bool	hasDigit(std::string str)
 
 bool	convertToFloat(std::string str)
 {
-	int	i;
 	std::string			allowedSymbols = "0123456789f.+-";
 	std::stringstream	ss(str);
 	float				num;
@@ -96,7 +100,7 @@ bool	convertToFloat(std::string str)
 	}
 	if (str.find_first_not_of(allowedSymbols) != std::string::npos)
 		return (false);
-	if (str.back() == 'f' && str.length() > 1 && hasDigit(str))
+	if (str[str.length()] == 'f' && str.length() > 1 && hasDigit(str))
 	{	
 		std::cout << str << std::endl;
 		return (true);
@@ -137,17 +141,21 @@ bool	convertToDouble(std::string str)
 
 void ScalarConverter::convert(std::string input)
 {
-	if (!validInput(input));
+	if (!validInput(input))
 	{
 		std::cout << "Invalid input" << std::endl;
 		return ;
 	}
+	std::cout << "Char: ";
 	if (!convertToChar(input))
 		std::cout << "Impossible" << std::endl;
+	std::cout << "Int: ";
 	if (!convertToInt(input))
 		std::cout << "Impossible" << std::endl;
+	std::cout << "Float: ";
 	if (!convertToFloat(input))
 		std::cout << "Impossible" << std::endl;
+	std::cout << "Double: ";
 	if (!convertToDouble(input))
 		std::cout << "Impossible" << std::endl;
 }
@@ -155,36 +163,36 @@ void ScalarConverter::convert(std::string input)
 /*Getters and Setters*/
 
 /*Constructors*/
-ScalarConverter::ScalarConverter(/*Parameterized Constructor*/)
-{
-   std::cout << "ScalarConverter parameterized constructor is called" << std::endl;
-}
+// ScalarConverter::ScalarConverter()
+// {
+//    std::cout << "ScalarConverter parameterized constructor is called" << std::endl;
+// }
 
-ScalarConverter::ScalarConverter()
-{
-    std::cout << "ScalarConverter default constructor is called" << std::endl;
-}
+// ScalarConverter::ScalarConverter()
+// {
+//     std::cout << "ScalarConverter default constructor is called" << std::endl;
+// }
 
-/*Destructors*/
-ScalarConverter::~ScalarConverter( void )
-{
-    std::cout << "ScalarConverter destructor is called" << std::endl;
-}
+// /*Destructors*/
+// ScalarConverter::~ScalarConverter( void )
+// {
+//     std::cout << "ScalarConverter destructor is called" << std::endl;
+// }
 
 /*Overload operators*/
-ScalarConverter& ScalarConverter::operator=(const ScalarConverter& src)
-{
-	std::cout << "ScalarConverter copy assignment is called" << std::endl;
-	if (this != &src)
-	{
-		// Assinment variables
-	}
-	return (*this);
-}
+// ScalarConverter& ScalarConverter::operator=(const ScalarConverter& src)
+// {
+// 	std::cout << "ScalarConverter copy assignment is called" << std::endl;
+// 	if (this != &src)
+// 	{
+// 		// Assinment variables
+// 	}
+// 	return (*this);
+// }
 
-std::ostream& operator<<(std::ostream& output_stream, ScalarConverter& src)
-{
-	output_stream << "* ScalarConverter Class info*" << std::endl;
-	return output_stream;
-}
+// std::ostream& operator<<(std::ostream& output_stream, ScalarConverter& src)
+// {
+// 	output_stream << "* ScalarConverter Class info*" << std::endl;
+// 	return output_stream;
+// }
 
