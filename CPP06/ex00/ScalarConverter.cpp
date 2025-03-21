@@ -194,6 +194,8 @@ bool	convertToDouble(std::string str)
 	ss >> num;
 	if (ss.fail())
 		return (false);
+	if (std::fabs(num - static_cast<int>(num) < 0.0000000000001))
+		std::cout << num << ".0" << std::endl;
 	else
 		std::cout << num << std::endl;
 	return (true);
