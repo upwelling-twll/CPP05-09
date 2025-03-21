@@ -49,7 +49,7 @@ bool	validInput(std::string str)
 		return (false);
 	if (countOccurence(str, '+') > 1 || countOccurence(str, '-') > 1 || countOccurence(str, '.') > 1)
 		return (false);
-	if (str == "nan")
+	if (str == "nan" || str == "+inf" || str == "-inf" || str == "+inff" || str == "-inff")
 		return (true);
 	for (size_t i = 0; i < str.length(); ++i)
 	{
@@ -87,6 +87,14 @@ bool	convertToInt(std::string str)
 	long long	i;
 	std::string	allowedSymbols = "0123456789f.+-";
 
+	if (str == "+inff" || str == "-inff")
+	{
+		return (false);
+	}
+	if (str == "+inf" || str == "-inf" || str == "nan")
+	{
+		return (false);
+	}
 	if (countStrOccurence(str, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ") > 1)
 	{
 		std::cout << "Inaceptable symbols for this type" << std::endl;
@@ -133,10 +141,7 @@ bool	convertToFloat(std::string str)
 {
 	std::string			allowedSymbols = "0123456789f.+-";
 	std::stringstream	ss(str);
-	// float				num;
 	float				num = 0.0f;
-	// float				minf = std::numeric_limits<float>::min();
-	// float				maxf = std::numeric_limits<float>::max();
 
 	if (str == "+inff" || str == "-inff")
 	{
@@ -158,20 +163,9 @@ bool	convertToFloat(std::string str)
 		std::cout << str << std::endl;
 		return (true);
 	}
-
-	// num =  std::atof(str.c_str());
-	// if (num < minf || num > maxf)
-	// 	return (false);
-	// if (std::fabs(num - static_cast<int>(num)) < 0.0000000000001)
-	// 	std::cout << num << ".0f" << std::endl;
-	// else
-	// 	std::cout << num << 'f' << std::endl;
-
 	ss >> num;
 	if (ss.fail())
 		return (false);
-	// if (num < minf || num > maxf)
-	// 	return (false);
 	if ((countOccurence(str, '.') == 1 && hasZeroAfterPoint(num) && digitsAfterPoint(str, num) <= 7))
 		std::cout << num << 'f' << std::endl;
 	else
