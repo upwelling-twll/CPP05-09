@@ -6,3 +6,6 @@ according to subject requirement:
 "You have to first detect the type of the literal passed as a parameter, convert it from
 string to its actual type, then convert it explicitly to the three other data types. Lastly,
 display the results as shown below."
+
+CPP07: ex02
+can improve code organization by moxing class functions (constr, mem, oper, destr) to the .tpp file. while includeing .tpp file in the end of .hpp file just before #enfif line
