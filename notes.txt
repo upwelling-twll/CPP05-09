@@ -1,0 +1,8 @@
+for CPP06 ex00: 
+	1.change logic of the algo
+	2. change error messages 
+	3. check if there is a header that will automaticaly print inf/inff values instead just printing it manually
+according to subject requirement:
+"You have to first detect the type of the literal passed as a parameter, convert it from
+string to its actual type, then convert it explicitly to the three other data types. Lastly,
+display the results as shown below."
