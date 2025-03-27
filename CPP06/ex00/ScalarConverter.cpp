@@ -201,18 +201,48 @@ bool	convertToDouble(std::string str)
 	return (true);
 }
 
+bool	converChar(char c)
+{
+	int		i;
+	float	f;
+	double	d;
+
+	std::cout << "Char: ";
+	if (c > 32  && c < 127)
+		std::cout << c << std::endl;
+	else
+		std::cout << "Non displayable" << std::endl;
+
+	std::cout << "Int: ";
+	i = static_cast<int>(c);
+	std::cout << i << std::endl;
+
+	std::cout << "Float: ";
+	f = static_cast<float>(c);
+	std::cout << f << std::endl;
+
+	std::cout << "Double: ";
+	d = static_cast<int>(c);
+	std::cout << d << std::endl;
+}
+
 bool	isChar(std::string str, char *c)
 {
-	if (str.length() == 1 &&  std::isalpha(str[0]))
+	std::string	allowedSymbols = "0123456789f.+-";
+	
+	if (str.length() == 1 && std::isalpha(str[0]))
 	{
 		*c = static_cast<char>(str[0]);
-		if (*c > 32  && *c < 127)
-			return (true);
-		else
-			return (false);
+		return (true);
 	}
-	if (str.find_first_not_of(allowedSymbols) != std::string::npos)
-		return (false);
+	// if (str.find_first_not_of(allowedSymbols) != std::string::npos)
+	// {
+	// 	if (str == "+inf" || str == "-inf" || str == "+inff" || str == "-inff")
+	// 		return (false);
+	// 	*c = NULL;
+	// }
+	*c = NULL;
+	return (true);
 }
 
 void ScalarConverter::convert(std::string input)
@@ -230,7 +260,7 @@ void ScalarConverter::convert(std::string input)
 	else if (isChar(input, &c))
 	{
 		if (!converChar(c))
-			throw NonPrintableChar;
+			throw ErrorConvertingChar;
 	}
 	else if (isInt(input, &i))
 	{
