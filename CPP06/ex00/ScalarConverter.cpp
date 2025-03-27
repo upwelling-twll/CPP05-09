@@ -201,25 +201,54 @@ bool	convertToDouble(std::string str)
 	return (true);
 }
 
+bool	isChar(std::string str, char *c)
+{
+	if (str.length() == 1 &&  std::isalpha(str[0]))
+	{
+		*c = static_cast<char>(str[0]);
+		if (*c > 32  && *c < 127)
+			return (true);
+		else
+			return (false);
+	}
+	if (str.find_first_not_of(allowedSymbols) != std::string::npos)
+		return (false);
+}
+
 void ScalarConverter::convert(std::string input)
 {
+	char 	c;
+	int		i;
+	float	f;
+	double 	d;
+
 	if (!validInput(input))
 	{
 		std::cout << "Invalid input" << std::endl;
 		return ;
 	}
-	std::cout << "Char: ";
-	if (!convertToChar(input))
-		std::cout << "Impossible" << std::endl;
-	std::cout << "Int: ";
-	if (!convertToInt(input))
-		std::cout << "Impossible" << std::endl;
-	std::cout << "Float: ";
-	if (!convertToFloat(input))
-		std::cout << "Impossible" << std::endl;
-	std::cout << "Double: ";
-	if (!convertToDouble(input))
-		std::cout << "Impossible" << std::endl;
+	else if (isChar(input, &c))
+	{
+		if (!converChar(c))
+			throw NonPrintableChar;
+	}
+	else if (isInt(input, &i))
+	{
+		if (!converInt(i))
+			throw;
+	}
+	else if (isDouble(input, &d))
+	{
+		if (!converDouble(d))
+			throw;
+	}
+	else if (!isFloat(input, &f))
+	{
+		if (!converFloat(f))
+			throw;
+	}
+	else
+		std::cout << "Imposssible" << std::endl;
 }
 
 /*Getters and Setters*/
