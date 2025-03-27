@@ -20,10 +20,10 @@ public:
 	/*Constructors*/
 	Array(void);
 	Array(unsigned int n);
-	Array(const Array& other)
+	Array(const Array& other);
 
 	/*Destructors*/
-    ~Array( void );
+    ~Array();
 
 	/*Overload operators*/
 	Array &operator=(const Array& src);
@@ -31,6 +31,9 @@ public:
 	const T& operator[](unsigned int index) const;
 };
 
-std::ostream& operator<<(std::ostream &output_stream, Array& src);
+// template <typename T>
+// std::ostream& operator<<(std::ostream &output_stream, Array<T>& src);
+
+#include "Array.tpp"
 
 #endif // ARRAY_HPP
