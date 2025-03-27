@@ -21,7 +21,7 @@ public:
 
 	/*Constructors*/
     // ScalarConverter(/*Parameterized Constructor*/);
-	// ScalarConverter(void);
+	ScalarConverter(void);
 
 	/*Destructors*/
     ~ScalarConverter( void );

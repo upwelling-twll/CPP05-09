@@ -225,10 +225,6 @@ void ScalarConverter::convert(std::string input)
 /*Getters and Setters*/
 
 /*Constructors*/
-ScalarConverter::ScalarConverter()
-{
-   std::cout << "ScalarConverter parameterized constructor is called" << std::endl;
-}
 
 ScalarConverter::ScalarConverter()
 {

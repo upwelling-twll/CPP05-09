@@ -3,13 +3,14 @@
 
 # include <iostream>
 # include "Data.hpp"
+# include <stdint.h>
 
 class Serializer
 {
 private:
     // Add member variables here
 
-public:
+public:	
 	/*Member functions*/
     static uintptr_t	serialize(Data* ptr);
 	static Data*		deserialize(uintptr_t raw);

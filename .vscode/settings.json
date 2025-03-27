@@ -65,6 +65,7 @@
 		"utility": "cpp",
 		"vector": "cpp",
 		"numeric": "cpp",
-		"random": "cpp"
+		"random": "cpp",
+		"*.tpp": "cpp"
 	}
 }

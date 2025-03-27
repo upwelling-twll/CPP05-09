@@ -2,18 +2,18 @@
 #include "B.hpp"
 #include "C.hpp"
 #include "Other.hpp"
-#include <random>
+#include <cstdlib>
+#include <ctime>
 #include <exception>
 
 Base * generate(void)
 {
-	std::random_device				rd;
-	std::mt19937					gen(rd());
-	std::uniform_int_distribution<> dis(0,2);
+	std::srand(static_cast<unsigned int>(std::time(0)));
+	int	rnum = std::rand() % 3;
 
-	if (dis(gen) == 0)
+	if (rnum == 0)
 		return (new A);
-	else if (dis(gen) == 1)
+	else if (rnum == 1)
 		return (new B);
 	else
 		return (new C);
