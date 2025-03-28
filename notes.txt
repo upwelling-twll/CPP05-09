@@ -8,4 +8,4 @@ string to its actual type, then convert it explicitly to the three other data ty
 display the results as shown below."
 
 CPP07: ex02 - done
-can improve code organization by moxing class functions (constr, mem, oper, destr) to the .tpp file. while includeing .tpp file in the end of .hpp file just before #enfif line
+can improve code organization by moving class functions (constr, mem, oper, destr) to the .tpp file. while includeing .tpp file in the end of .hpp file just before #endif line

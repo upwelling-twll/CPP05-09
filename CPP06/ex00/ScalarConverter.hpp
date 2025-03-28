@@ -8,6 +8,7 @@
 # include <limits>
 # include <cstdlib>
 # include <exception>
+# include <iomanip>
 class ScalarConverter
 {
 private:
@@ -33,7 +34,7 @@ class ErrorConvertingChar : public std::exception
 {
 	const char * what () const throw ()
 	{
-		return "This char can not be converted";
+		return "Char: This char can not be converted";
 	}
 };
 

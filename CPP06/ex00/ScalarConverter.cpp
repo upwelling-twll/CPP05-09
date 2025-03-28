@@ -61,147 +61,7 @@ bool	validInput(std::string str)
 	return (true);
 }
 
-bool	convertToChar(std::string str)
-{
-	int		i;
-	std::string	allowedSymbols = "0123456789f.+-";
-
-	if (str.length() == 1 &&  std::isalpha(str[0]))
-	{
-		std::cout << str[0] << std::endl;
-		return (true);
-	}
-	if (str.find_first_not_of(allowedSymbols) != std::string::npos)
-		return (false);
-	std::stringstream ss(str);
-	ss >> i;
-	if (i > 32  && i < 127)
-		std::cout << static_cast<char>(i) << std::endl;
-	else
-		std::cout << "Non displayable" << std::endl;
-	return (true);
-}
-
-bool	convertToInt(std::string str)
-{
-	long long	i;
-	std::string	allowedSymbols = "0123456789f.+-";
-
-	if (str == "+inff" || str == "-inff")
-	{
-		return (false);
-	}
-	if (str == "+inf" || str == "-inf" || str == "nan")
-	{
-		return (false);
-	}
-	if (countStrOccurence(str, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ") > 1)
-	{
-		std::cout << "Inaceptable symbols for this type" << std::endl;
-		return (false);
-	}
-	std::stringstream ss(str);
-	ss >> i;
-	if (i > 2147483647 || i < -2147483648)
-		return (false);
-	else
-		std::cout << i << std::endl;
-	return (true);
-}
-
-bool	hasZeroAfterPoint(float num)
-{
-	int	intNum;
-
-	intNum = static_cast<int>(num);
-	if (num == intNum)
-		return (false);
-	else
-		return (true);
-}
-
-int	digitsAfterPoint(std::string str, float num)
-{
-	int 	count = 0;
-	bool	afterPoint = false;
-
-   for (std::string::const_iterator it = str.begin(); it != str.end() ; ++it)
-   {
-		if (*it == '.')
-			afterPoint = true;
-        if (afterPoint)
-			count++;
-    }
-	if (num > -1 && num < 1)
-		return (0);
-	return (count);
-}
-
-bool	convertToFloat(std::string str)
-{
-	std::string			allowedSymbols = "0123456789f.+-";
-	std::stringstream	ss(str);
-	float				num = 0.0f;
-
-	if (str == "+inff" || str == "-inff")
-	{
-		std::cout << str << std::endl;
-		return (true);
-	}
-	if (str == "+inf" || str == "-inf" || str == "nan")
-	{
-		std::cout << str + "f" << std::endl;
-		return (true);
-	}
-	if (str.find_first_not_of(allowedSymbols) != std::string::npos)
-	{
-		std::cout << "Inaceptable symbol" << std::endl;
-		return (false);
-	}
-	if (str[str.length()] == 'f' && str.length() > 1 && hasDigit(str))
-	{	
-		std::cout << str << std::endl;
-		return (true);
-	}
-	ss >> num;
-	if (ss.fail())
-		return (false);
-	if ((countOccurence(str, '.') == 1 && hasZeroAfterPoint(num) && digitsAfterPoint(str, num) <= 7))
-		std::cout << num << 'f' << std::endl;
-	else
-		std::cout << num << ".0f" << std::endl;
-	return (true);
-}
-
-bool	convertToDouble(std::string str)
-{
-	std::string			allowedSymbols = "0123456789f.+-";
-	std::stringstream	ss(str);
-	double				num;
-
-	if (str == "+inf" || str == "-inf" || str == "nan")
-	{
-		std::cout << str << std::endl;
-		return (true);
-	}
-	if (str == "+inff" || str == "-inff")
-	{
-		std::cout << str.substr(0, str.length() - 1) << std::endl;
-		return (true);
-	}
-	if (str.find_first_not_of(allowedSymbols) != std::string::npos)
-		return (false);
-	ss >> num;
-	if (ss.fail())
-		return (false);
-	if (std::fabs(num - static_cast<int>(num) < 0.0000000000001))
-		std::cout << num << ".0" << std::endl;
-	else
-		std::cout << num << std::endl;
-	return (true);
-}
-
-bool	converChar(char c)
+bool	convertChar(char c)
 {
 	int		i;
 	float	f;
@@ -210,24 +70,19 @@ bool	converChar(char c)
 	if (c > 32  && c < 127)
 	{
 		std::cout << c << std::endl;
-		return (true);
 	}
 	else
 	{
 		std::cout << "Non displayable" << std::endl;
-		return (true);
 	}
 	std::cout << "Int: ";
-	i = static_cast<int>(c);
-	std::cout << i << std::endl;
+	std::cout << "'" << static_cast<int>(c) << "'" << std::endl;
 
 	std::cout << "Float: ";
-	f = static_cast<float>(c);
-	std::cout << f << std::endl;
+	std::cout << static_cast<float>(c) << ".0f" << std::endl;
 
 	std::cout << "Double: ";
-	d = static_cast<int>(c);
-	std::cout << d << std::endl;
+	std::cout <<static_cast<double>(c) << ".0" << std::endl;
 	return (true);
 }
 
@@ -236,14 +91,16 @@ bool	isChar(std::string str, char *c)
 	std::string	allowedSymbols = "0123456789f.+-";
 	int	i;
 
-	if (str.length() == 1 && std::isalpha(str[0]))
+	std::cout << "Char: ";
+	if (str.length() == 1 && std::isprint(str[0]))
 	{
 		*c = static_cast<char>(str[0]);
 		return (true);
 	}
 	if (str.find_first_not_of(allowedSymbols) != std::string::npos)
 	{
-		if (str == "+inf" || str == "-inf" || str == "+inff" || str == "-inff")
+		if (str == "+inf" || str == "-inf" || str == "+inff" ||  \
+			str == "-inff" || str == "nan" || str == "nanf")
 			return (false);
 	}
 	i = std::atoi(str.c_str());
@@ -251,39 +108,178 @@ bool	isChar(std::string str, char *c)
 	return (true);
 }
 
+bool	convertInt(const std::string& str)
+{
+	long	l = std::atol(str.c_str());
+
+	std::cout << "char: ";
+	if (l < 0 || l > 127)
+		std::cout << "impossible" << std::endl;
+	else
+	{
+		if (isprint(l))
+			std::cout << "'" << static_cast<char>(l) << "'" << std::endl;
+		else
+			return (false);
+	}
+	std::cout << "int: ";
+	if (l < MIN_INT || l > MAX_INT)
+		std::cout << "impossible" << std::endl;
+	else
+		std::cout	<< static_cast<int>(l) << std::endl;
+	std::cout << "float: " << static_cast<float>(l) << ".0f" << std::endl;
+	std::cout << "double: " << static_cast<double>(l) << ".0" << std::endl;
+	return (true);
+}
+
+bool	isInt(std::string str)
+{
+	int		i;
+	bool	notInt = false;
+	int		len;
+
+	i = 0;
+	len = str.length();
+	if (str[0] == '-' || str[0] == '+')
+	{
+		i++;
+		notInt = true;
+	}
+	while ((str[i] && len > 0 && len < 12) || (str[i] && !notInt && len > 0 && len < 11))
+	{
+		if (!isdigit(str[i]))
+			return (0);
+		i++;
+	}
+	return (true);
+}
+
+bool	convertFloat(const std::string& str)
+{
+	float	f = std::atof(str.c_str());
+	bool	tolerance = std::fabs(f - static_cast<int>(f)) < 0.0000000000001;
+
+	std::cout << "char: ";
+	if (f < 0 || f > 127)
+		std::cout << "impossible" << std::endl;
+	else
+	{
+		if (isprint(f))
+			std::cout << "'" << static_cast<char>(f) << "'" << std::endl;
+		else 
+			return (false);
+	}
+	std::cout << "int: ";
+	if (static_cast<long>(f) < MIN_INT || static_cast<long>(f) > MAX_INT)
+		std::cout << "impossible" << std::endl;
+	else
+		std::cout << static_cast<int>(f) << std::endl;
+	std::cout << "float: ";
+	if (f < MIN_FLOAT || f > MAX_FLOAT)
+		std::cout << "impossible" << std::endl;
+	else
+		std::cout << f << (tolerance ? ".0f" : "f") << std::endl;
+	std::cout << "double: " << static_cast<double>(f) << (tolerance ? ".0" : "") << std::endl;
+}
+
+static int	isFloat(const std::string& str)
+{
+	size_t	len;
+	size_t	dot;
+
+	len = str.length();
+	dot = str.find('.');
+	for (int j = dot - 1; j >= 0; j--)
+	{
+		if (!isdigit(str[j]) && j != 0)
+			return 0;
+		if (!isdigit(str[j]) && j == 0 && str[j] != '+' && str[j] != '-')
+			return 0;
+	}
+	for (size_t i = dot + 1; i < len; i++)
+	{
+		if (!isdigit(str[i]) && str[i] != 'f')
+			return 0;
+		if (str[i] == 'f' && i != len - 1)
+			return 0;
+	}
+	return 1;
+}
+
+bool	isDouble(std::string &str)
+{
+	size_t	f;
+	size_t	dot;
+
+	f = str.find('f');
+	dot = str.find('.');
+	if((f == std::string::npos) && (dot != std::string::npos))
+		return (true);
+}
+
+static int	convertDouple(const std::string& str)
+{
+	double		d = std::atof(str.c_str());
+	bool		tolerance = std::fabs(d - static_cast<int>(d)) < 0.0000000000001;
+
+	std::cout << "char: ";
+	if (d < 0 || d > 127)
+		std::cout << "impossible" << std::endl;
+	else
+	{
+		if (isprint(d))
+			std::cout << "'" << static_cast<char>(d) << "'" << std::endl;
+		else 
+			std::cout << "Non displayable" << std::endl;
+	}
+	std::cout << "int: ";
+	if (d < MIN_INT || d > MAX_INT)
+		std::cout << "impossible" << std::endl;
+	else
+		std::cout << static_cast<int>(d) << std::endl;
+	std::cout << "float: ";
+	if (d < MIN_FLOAT || d > MAX_FLOAT)
+		std::cout << "impossible" << std::endl;
+	else
+		std::cout << static_cast<float>(d) << (tolerance ? ".0f" : "f") << std::endl;
+	std::cout << "double: ";
+	if (d < MIN_DOUBLE || d > MAX_DOUBLE)
+		std::cout << "impossible" << std::endl;
+	else
+		std::cout << d << std::endl;
+	}
+	return (1);
+}
+
 void ScalarConverter::convert(std::string input)
 {
 	char 	c;
-	int		i;
-	// float	f;
-	// double 	d;
 
 	if (!validInput(input))
 	{
 		std::cout << "Invalid input" << std::endl;
 		return ;
 	}
-	std::cout << "Char: ";
 	if (isChar(input, &c))
 	{
-		if (!converChar(c))
+		if (!convertChar(c))
 			throw ErrorConvertingChar();
 	}
-	else if (isInt(input, &i))
+	else if (isInt(input))
 	{
-		if (!converInt(i))
+		if (!convertInt(input))
 			throw;
 	}
-	// else if (isDouble(input, &d))
-	// {
-	// 	if (!converDouble(d))
-	// 		throw;
-	// }
-	// else if (!isFloat(input, &f))
-	// {
-	// 	if (!converFloat(f))
-	// 		throw;
-	// }
+	else if (!isFloat(input))
+	{
+		if (!convertFloat(input))
+			throw;
+	}
+	else if (isDouble(input))
+	{
+		if (!convertDouble(input))
+			throw;
+	}
 	else
 		std::cout << "Imposssible" << std::endl;
 }
