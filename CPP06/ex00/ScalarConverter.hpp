@@ -7,7 +7,7 @@
 # include <cmath>
 # include <limits>
 # include <cstdlib>
-
+# include <exception>
 class ScalarConverter
 {
 private:
@@ -28,6 +28,13 @@ public:
 
 	/*Overload operators*/
 	ScalarConverter &operator=(const ScalarConverter& src);
+};
+class ErrorConvertingChar : public std::exception
+{
+	const char * what () const throw ()
+	{
+		return "This char can not be converted";
+	}
 };
 
 std::ostream& operator<<(std::ostream &output_stream, ScalarConverter& src);

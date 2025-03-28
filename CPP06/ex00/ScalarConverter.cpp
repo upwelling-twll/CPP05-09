@@ -207,12 +207,16 @@ bool	converChar(char c)
 	float	f;
 	double	d;
 
-	std::cout << "Char: ";
 	if (c > 32  && c < 127)
+	{
 		std::cout << c << std::endl;
+		return (true);
+	}
 	else
+	{
 		std::cout << "Non displayable" << std::endl;
-
+		return (true);
+	}
 	std::cout << "Int: ";
 	i = static_cast<int>(c);
 	std::cout << i << std::endl;
@@ -224,24 +228,26 @@ bool	converChar(char c)
 	std::cout << "Double: ";
 	d = static_cast<int>(c);
 	std::cout << d << std::endl;
+	return (true);
 }
 
 bool	isChar(std::string str, char *c)
 {
 	std::string	allowedSymbols = "0123456789f.+-";
-	
+	int	i;
+
 	if (str.length() == 1 && std::isalpha(str[0]))
 	{
 		*c = static_cast<char>(str[0]);
 		return (true);
 	}
-	// if (str.find_first_not_of(allowedSymbols) != std::string::npos)
-	// {
-	// 	if (str == "+inf" || str == "-inf" || str == "+inff" || str == "-inff")
-	// 		return (false);
-	// 	*c = NULL;
-	// }
-	*c = NULL;
+	if (str.find_first_not_of(allowedSymbols) != std::string::npos)
+	{
+		if (str == "+inf" || str == "-inf" || str == "+inff" || str == "-inff")
+			return (false);
+	}
+	i = std::atoi(str.c_str());
+	*c = static_cast<char>(i);
 	return (true);
 }
 
@@ -249,34 +255,35 @@ void ScalarConverter::convert(std::string input)
 {
 	char 	c;
 	int		i;
-	float	f;
-	double 	d;
+	// float	f;
+	// double 	d;
 
 	if (!validInput(input))
 	{
 		std::cout << "Invalid input" << std::endl;
 		return ;
 	}
-	else if (isChar(input, &c))
+	std::cout << "Char: ";
+	if (isChar(input, &c))
 	{
 		if (!converChar(c))
-			throw ErrorConvertingChar;
+			throw ErrorConvertingChar();
 	}
 	else if (isInt(input, &i))
 	{
 		if (!converInt(i))
 			throw;
 	}
-	else if (isDouble(input, &d))
-	{
-		if (!converDouble(d))
-			throw;
-	}
-	else if (!isFloat(input, &f))
-	{
-		if (!converFloat(f))
-			throw;
-	}
+	// else if (isDouble(input, &d))
+	// {
+	// 	if (!converDouble(d))
+	// 		throw;
+	// }
+	// else if (!isFloat(input, &f))
+	// {
+	// 	if (!converFloat(f))
+	// 		throw;
+	// }
 	else
 		std::cout << "Imposssible" << std::endl;
 }

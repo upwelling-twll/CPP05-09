@@ -15,6 +15,14 @@ int	main(int argc, char *argv[])
 		std::cout << "Empty input" << std::endl;
 		return(1);
 	}
-	ScalarConverter::convert(input);
+	try
+	{
+		ScalarConverter::convert(input);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+	
 	return 0;
 }
