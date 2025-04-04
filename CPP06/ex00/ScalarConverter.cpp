@@ -11,6 +11,7 @@ bool	hasDigit(std::string str)
 	}
 	return (false);
 }
+
 int	countOccurence(std::string str, char symbol)
 {
 	int count = 0;
@@ -63,10 +64,6 @@ bool	validInput(std::string str)
 
 bool	convertChar(char c)
 {
-	int		i;
-	float	f;
-	double	d;
-
 	if (c > 32  && c < 127)
 	{
 		std::cout << c << std::endl;
@@ -175,11 +172,12 @@ bool	convertFloat(const std::string& str)
 	else
 		std::cout << static_cast<int>(f) << std::endl;
 	std::cout << "float: ";
-	if (f < MIN_FLOAT || f > MAX_FLOAT)
+	if (f < MINFLOAT || f > MAXFLOAT)
 		std::cout << "impossible" << std::endl;
 	else
 		std::cout << f << (tolerance ? ".0f" : "f") << std::endl;
 	std::cout << "double: " << static_cast<double>(f) << (tolerance ? ".0" : "") << std::endl;
+	return (true);
 }
 
 static int	isFloat(const std::string& str)
@@ -215,9 +213,10 @@ bool	isDouble(std::string &str)
 	dot = str.find('.');
 	if((f == std::string::npos) && (dot != std::string::npos))
 		return (true);
+	return (false);
 }
 
-static int	convertDouple(const std::string& str)
+static int	convertDouble(const std::string& str)
 {
 	double		d = std::atof(str.c_str());
 	bool		tolerance = std::fabs(d - static_cast<int>(d)) < 0.0000000000001;
@@ -238,7 +237,7 @@ static int	convertDouple(const std::string& str)
 	else
 		std::cout << static_cast<int>(d) << std::endl;
 	std::cout << "float: ";
-	if (d < MIN_FLOAT || d > MAX_FLOAT)
+	if (d < MINFLOAT || d > MAXFLOAT)
 		std::cout << "impossible" << std::endl;
 	else
 		std::cout << static_cast<float>(d) << (tolerance ? ".0f" : "f") << std::endl;
@@ -247,7 +246,6 @@ static int	convertDouple(const std::string& str)
 		std::cout << "impossible" << std::endl;
 	else
 		std::cout << d << std::endl;
-	}
 	return (1);
 }
 

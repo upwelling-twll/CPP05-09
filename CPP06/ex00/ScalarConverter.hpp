@@ -9,6 +9,14 @@
 # include <cstdlib>
 # include <exception>
 # include <iomanip>
+# include <algorithm>
+
+# define MIN_INT std::numeric_limits<int>::min()
+# define MAX_INT std::numeric_limits<int>::max()
+# define MINFLOAT -std::numeric_limits<float>::max()
+# define MIN_DOUBLE std::numeric_limits<double>::min()
+# define MAX_DOUBLE std::numeric_limits<double>::max()
+
 class ScalarConverter
 {
 private:
