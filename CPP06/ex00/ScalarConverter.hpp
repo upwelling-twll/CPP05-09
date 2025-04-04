@@ -3,13 +3,10 @@
 
 # include <iostream>
 # include <string>
-# include <sstream>
 # include <cmath>
 # include <limits>
 # include <cstdlib>
 # include <exception>
-# include <iomanip>
-# include <algorithm>
 
 # define MIN_INT std::numeric_limits<int>::min()
 # define MAX_INT std::numeric_limits<int>::max()

@@ -62,47 +62,39 @@ bool	validInput(std::string str)
 	return (true);
 }
 
-bool	convertChar(char c)
+bool	convertChar(std::string str)
 {
-	if (c > 32  && c < 127)
+	char	c = 0;
+
+	if (str.length() == 1)
+		c = str[0];
+	else
+		c = str[1];
+	std::cout << "char: ";
+	if (isprint(c))
 	{
-		std::cout << c << std::endl;
+		std::cout << "'" << c << "'" << std::endl;
+		std::cout << "int: " << static_cast<int>(c) << std::endl;
+		std::cout << "float: " << static_cast<float>(c) << ".0f" << std::endl;
+		std::cout << "double: " << static_cast<double>(c) << ".0" << std::endl;
+	return (true);
 	}
 	else
-	{
 		std::cout << "Non displayable" << std::endl;
-	}
-	std::cout << "Int: ";
-	std::cout << "'" << static_cast<int>(c) << "'" << std::endl;
-
-	std::cout << "Float: ";
-	std::cout << static_cast<float>(c) << ".0f" << std::endl;
-
-	std::cout << "Double: ";
-	std::cout <<static_cast<double>(c) << ".0" << std::endl;
-	return (true);
+	return (false);
 }
 
-bool	isChar(std::string str, char *c)
+bool	isChar(std::string str)
 {
-	std::string	allowedSymbols = "0123456789f.+-";
-	int	i;
-
-	std::cout << "Char: ";
-	if (str.length() == 1 && std::isprint(str[0]))
+	if (str.length() == 1 && std::isdigit(str[0]))
 	{
-		*c = static_cast<char>(str[0]);
 		return (true);
 	}
-	if (str.find_first_not_of(allowedSymbols) != std::string::npos)
+	if (str.length() == 3 && str[0] == '\'' && str[2] == '\'')
 	{
-		if (str == "+inf" || str == "-inf" || str == "+inff" ||  \
-			str == "-inff" || str == "nan" || str == "nanf")
-			return (false);
+		return (true);
 	}
-	i = std::atoi(str.c_str());
-	*c = static_cast<char>(i);
-	return (true);
+	return (false);
 }
 
 bool	convertInt(const std::string& str)
@@ -251,16 +243,14 @@ static int	convertDouble(const std::string& str)
 
 void ScalarConverter::convert(std::string input)
 {
-	char 	c;
-
-	if (!validInput(input))
+	// if (!validInput(input))
+	// {
+	// 	std::cout << "Invalid input" << std::endl;
+	// 	return ;
+	// }
+	if (isChar(input))
 	{
-		std::cout << "Invalid input" << std::endl;
-		return ;
-	}
-	if (isChar(input, &c))
-	{
-		if (!convertChar(c))
+		if (!convertChar(input))
 			throw ErrorConvertingChar();
 	}
 	else if (isInt(input))
