@@ -97,6 +97,32 @@ bool	isChar(std::string str)
 	return (false);
 }
 
+void	prinInfNan(const std::string& str)
+{
+	if (str == "nan" || str == "nanf")
+	{
+		std::cout << "char: impossible" << std::endl; 
+		std::cout << "int: impossible" << std::endl;
+		std::cout << "float: nanf" << std::endl;
+		std::cout << "double: nan" << std::endl;
+	}
+	else if (str == "+inf" || str == "+inff")
+	{
+		std::cout << "char: impossible" << std::endl;
+		std::cout << "int: impossible" << std::endl;
+		std::cout << "float: +inff" << std::endl;
+		std::cout << "double: +inf" << std::endl;
+	}
+	else if (str == "-inf" || str == "-inff")
+	{
+		std::cout << "char: impossible" << std::endl;
+		std::cout << "int: impossible" << std::endl;
+		std::cout << "float: -inff" << std::endl;
+		std::cout << "double: -inf" << std::endl;
+	}
+}
+
+
 bool	convertInt(const std::string& str)
 {
 	long	l = std::atol(str.c_str());
@@ -241,14 +267,27 @@ static int	convertDouble(const std::string& str)
 	return (1);
 }
 
+bool	invalidType(std::string str)
+{
+	std::string  allowedChar = {"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"};
+	std::string  allowedInt = {"0123456789"};
+	std::string  allowedFloat = {"0123456789"};
+	std::string  allowedDouble = {"0123456789"};
+	std::string  allowedFloatSymb = {"+-.f"};
+	std::string  allowedDoubleSymb = {"+-."};
+
+	if (find_first_not_of(allowedChar, str) || countStrOccurence(allowedChar, str) > 1 || str.length() > 1)
+		
+}
+
 void ScalarConverter::convert(std::string input)
 {
-	// if (!validInput(input))
-	// {
-	// 	std::cout << "Invalid input" << std::endl;
-	// 	return ;
-	// }
-	if (isChar(input))
+	if (invalidType(input))
+	{
+		std::cout << "Invalid input" << std::endl;
+		return ;
+	}
+	else if (isChar(input))
 	{
 		if (!convertChar(input))
 			throw ErrorConvertingChar();
