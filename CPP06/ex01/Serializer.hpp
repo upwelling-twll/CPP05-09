@@ -18,6 +18,7 @@ public:
 
 	/*Constructors*/
 	Serializer(void);
+	Serializer(Serializer &src);
 
 	/*Destructors*/
     ~Serializer( void );
