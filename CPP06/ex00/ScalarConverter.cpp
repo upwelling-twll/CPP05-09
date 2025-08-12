@@ -267,17 +267,29 @@ static int	convertDouble(const std::string& str)
 	return (1);
 }
 
+bool find_first_not_of(std::string allowed, std::string str)
+{
+	for (size_t i = 0; i < str.length(); ++i)
+	{
+		if (allowed.find(str[i]) == std::string::npos)
+			return (true);
+	}
+	return (false);
+}
+
 bool	invalidType(std::string str)
 {
-	std::string  allowedChar = {"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"};
-	std::string  allowedInt = {"0123456789"};
-	std::string  allowedFloat = {"0123456789"};
-	std::string  allowedDouble = {"0123456789"};
-	std::string  allowedFloatSymb = {"+-.f"};
-	std::string  allowedDoubleSymb = {"+-."};
+	std::string  allowedChar = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	std::string  allowedInt = "0123456789";
+	std::string  allowedFloat = "0123456789";
+	std::string  allowedDouble = "0123456789";
+	std::string  allowedFloatSymb = "+-.f";
+	std::string  allowedDoubleSymb = "+-.";
+	std::string	 allowedInput = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ+-.";
 
-	if (find_first_not_of(allowedChar, str) || countStrOccurence(allowedChar, str) > 1 || str.length() > 1)
-		
+	if (find_first_not_of(allowedInput, str))
+		return (true);
+	return (false);
 }
 
 void ScalarConverter::convert(std::string input)
