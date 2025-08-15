@@ -1,6 +1,6 @@
-SRCS	=	main.cpp #Awesome.cpp
+SRCS	=	main.cpp ScalarConverter.cpp
 
-NAME	=	Templates
+NAME	=	ScalarConverter
 
 OBJ	=	$(SRCS:.cpp=.o)
 
@@ -13,6 +13,9 @@ all	:	$(NAME)
 $(NAME): $(OBJ)
 	$(CXX) $(CXXFLAGS) $(OBJ) -o $(NAME) 
 
+test: main_test.o ScalarConverter.o
+	$(CXX) $(CXXFLAGS) $^ -o $@	
+
 clean	:
 		rm -f $(OBJ)
 
@@ -21,4 +24,4 @@ fclean	:	clean
 
 re	:	fclean all
 
-.PHONY	:	all clean fclean re
+.PHONY	:	all clean fclean re test
