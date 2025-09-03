@@ -9,6 +9,20 @@ void Span::addNumber(int n)
 	_size++;	
 }
 
+void Span::addRange(int start, int end)
+{
+	if (start > end)
+		throw std::runtime_error("Invalid range");
+	if (_size + (end - start + 1) > _max_size)
+		throw std::runtime_error("Adding this range would exceed the maximum size of the Span");
+	for (int i = start; i <= end; ++i)
+	{
+		_vec.push_back(i);
+		_sorted.insert(i);
+		_size++;
+	}
+}
+
 long long int	Span::shortestSpan()
 {
 	if (_size < 2)

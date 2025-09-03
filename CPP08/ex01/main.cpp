@@ -155,6 +155,39 @@ int main()
 	std::cout << sp.shortestSpan() << std::endl;
 	std::cout << sp.longestSpan() << std::endl;
 
+	std::cout << "\n\n 	~Range of iterators test~" << std::endl;
+	Span s6(100);
+	s6.addRange(1, 100);
+	std::cout << "Shortest span: " << s6.shortestSpan() << std::endl;
+	std::cout << "Longest span: " << s6.longestSpan() << std::endl;	
+	
+	std::cout << "\n\n 	~Bad range of iterators test~" << std::endl;
+	Span s7(100);
+
+	try
+	{
+		s7.addRange(20, 200);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+	try
+	{
+		std::cout << "Shortest span: " << s7.shortestSpan() << std::endl;
+	}
+	catch (const std::runtime_error& e)
+	{
+		std::cerr << e.what() << std::endl;
+	}
+	try
+	{
+		std::cout << "Longest span: " << s7.longestSpan() << std::endl;
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
 	return 0;
 }
 

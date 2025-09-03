@@ -23,6 +23,7 @@ private:
 public:
 	/*Member functions*/
 	void 			addNumber(int n);
+	void			addRange(int start, int end);
 	long long int	shortestSpan();
 	long long int	longestSpan();
 
