@@ -1,6 +1,6 @@
-SRCS	=	main.cpp #Awesome.cpp
+SRCS	=	main.cpp Serializer.cpp
 
-NAME	=	Templates
+NAME	=	Serializer
 
 OBJ	=	$(SRCS:.cpp=.o)
 

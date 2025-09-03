@@ -1,6 +1,6 @@
-SRCS	=	main.cpp #Awesome.cpp
+SRCS	=	main.cpp Base.cpp
 
-NAME	=	Templates
+NAME	=	IdentifyClass
 
 OBJ	=	$(SRCS:.cpp=.o)
 

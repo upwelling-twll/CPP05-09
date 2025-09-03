@@ -42,9 +42,11 @@ int	countStrOccurence(std::string str1, std::string str2)
 
 bool	validInput(std::string str)
 {
-	std::string	allowedSymbols = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.+-";
+	std::string	allowedSymbols = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.+-;?!,:()[]{}<>_*/\\|^&%$#@`~\"' ";
 	int			alph = 0;
 
+	// if (str.find_first_not_of(allowedSymbols) != std::string::npos)
+	// 	return (false);
 	if (str.find_first_not_of(allowedSymbols) != std::string::npos)
 		return (false);
 	if (countOccurence(str, '+') > 1 || countOccurence(str, '-') > 1 || countOccurence(str, '.') > 1)
@@ -66,7 +68,7 @@ bool	convertToChar(std::string str)
 	int		i;
 	std::string	allowedSymbols = "0123456789f.+-";
 
-	if (str.length() == 1 &&  std::isalpha(str[0]))
+	if (str.length() == 1 &&  (std::isalpha(str[0]) || isascii(str[0])))
 	{
 		std::cout << str[0] << std::endl;
 		return (true);
@@ -86,6 +88,7 @@ bool	convertToInt(std::string str)
 {
 	long long	i;
 	std::string	allowedSymbols = "0123456789f.+-";
+	std::string	digit = "0123456789";
 
 	if (str == "+inff" || str == "-inff")
 	{
@@ -95,9 +98,37 @@ bool	convertToInt(std::string str)
 	{
 		return (false);
 	}
-	if (countStrOccurence(str, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ") > 1)
+	if (str.length() == 1 && (digit.find(str[0]) != std::string::npos))
 	{
-		std::cout << "Inaceptable symbols for this type" << std::endl;
+		//print solo digit
+		std::cout << str[0] << std::endl;
+		return (true);
+	}
+	if (str.length() == 1 && (std::isalpha(str[0]) || isascii(str[0])))
+	{
+		//convert to int
+		i = static_cast<int>(str[0]);
+		std::cout << i << std::endl;
+		return (true);
+	}
+	else if (str.length() == 1 && countStrOccurence(str, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.+-;?!,:()[]{}<>_*/\\|^&%$#@`~\"' ") > 1)
+	{
+		// std::cout << "Inaceptable symbols for this type" << std::endl;
+		return (false);
+	}
+	if (str.find_first_not_of("+-0123456789.f") != std::string::npos)
+	{
+		// std::cout << "Inaceptable symbol" << std::endl;
+		return (false);
+	}
+	if (str.find("f") != std::string::npos && str[str.length() - 1] != 'f')
+	{
+		// std::cout << "Inaceptable symbol 'f'" << std::endl;
+		return (false);
+	}
+	if ((str.find("-") != std::string::npos && str[0] != '-') || (str.find("+") != std::string::npos && str[0] != '+'))
+	{
+		// std::cout << "Inaceptable symbol +-" << std::endl;
 		return (false);
 	}
 	std::stringstream ss(str);
@@ -139,7 +170,7 @@ int	digitsAfterPoint(std::string str, float num)
 
 bool	convertToFloat(std::string str)
 {
-	std::string			allowedSymbols = "0123456789f.+-";
+	std::string			allowedSymbols = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.+-;?!,:()[]{}<>_*/\\|^&%$#@`~\"' ";
 	std::stringstream	ss(str);
 	float				num = 0.0f;
 
@@ -155,13 +186,41 @@ bool	convertToFloat(std::string str)
 	}
 	if (str.find_first_not_of(allowedSymbols) != std::string::npos)
 	{
-		std::cout << "Inaceptable symbol" << std::endl;
+		// std::cout << "Inaceptable symbol" << std::endl;
 		return (false);
 	}
-	if (str[str.length()] == 'f' && str.length() > 1 && hasDigit(str))
-	{	
-		std::cout << str << std::endl;
+	if (str.length() == 1 && (std::isalpha(str[0]) || isascii(str[0])))
+	{
+		std::cout << static_cast<float>(str[0]) << "f" << std::endl;
 		return (true);
+	}
+	if (str[str.length() - 1] == 'f' && str.length() > 1 && hasDigit(str))
+	{	
+		if (countOccurence(str, 'f') == 1 && countOccurence(str, '.') <= 1 && str.find_first_not_of("0123456789.f") == std::string::npos)
+		{
+			std::cout << str << std::endl;
+			return (true);
+		}
+		else
+		{
+			// std::cout << "Inaceptable symbol" << std::endl;
+			return (false);
+		}
+	}
+	if (str.find_first_not_of("+-0123456789.f") != std::string::npos)
+	{
+		// std::cout << "Inaceptable symbol" << std::endl;
+		return (false);
+	}
+	if (str.find("f") != std::string::npos && str[str.length() - 1] != 'f')
+	{
+		// std::cout << "Inaceptable symbol 'f'" << std::endl;
+		return (false);
+	}
+	if ((str.find("-") != std::string::npos && str[0] != '-') || (str.find("+") != std::string::npos && str[0] != '+'))
+	{
+		// std::cout << "Inaceptable symbol +-" << std::endl;
+		return (false);
 	}
 	ss >> num;
 	if (ss.fail())
@@ -176,7 +235,6 @@ bool	convertToFloat(std::string str)
 bool	convertToDouble(std::string str)
 {
 	std::string			allowedSymbols = "0123456789f.+-";
-	std::stringstream	ss(str);
 	double				num;
 
 	if (str == "+inf" || str == "-inf" || str == "nan")
@@ -189,11 +247,35 @@ bool	convertToDouble(std::string str)
 		std::cout << str.substr(0, str.length() - 1) << std::endl;
 		return (true);
 	}
-	if (str.find_first_not_of(allowedSymbols) != std::string::npos)
+	if (str.length() == 1 && (std::isalpha(str[0]) || isascii(str[0])))
+	{
+		std::cout << static_cast<double>(str[0]) << ".0" << std::endl;
+		return (true);
+	}
+	if (str.find_first_not_of(allowedSymbols) != std::string::npos){
+		// std::cout << "Inaceptable symbol some" << std::endl;
 		return (false);
+	}
+	if (str.find("f") != std::string::npos && str[str.length() - 1] != 'f')
+	{
+		// std::cout << "Inaceptable symbol 'f'" << std::endl;
+		return (false);
+	}
+	if ((str.find("-") != std::string::npos && str[0] != '-') || (str.find("+") != std::string::npos && str[0] != '+'))
+	{
+		// std::cout << "Inaceptable symbol +-" << std::endl;
+		return (false);
+	}
+	if (str.back() == 'f' && str.length() > 1)
+	{
+  	  	str.pop_back();
+	}
+	std::stringstream	ss(str);
 	ss >> num;
 	if (ss.fail())
+	{
 		return (false);
+	}
 	if (std::fabs(num - static_cast<int>(num) < 0.0000000000001))
 		std::cout << num << ".0" << std::endl;
 	else
