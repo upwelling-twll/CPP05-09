@@ -5,47 +5,29 @@ void Span::addNumber(int n)
 	if (_size == _max_size)
 		throw std::runtime_error("Span is full");
 	_vec.push_back(n);
-	_size++;
-	if (_size == 1)
-	{
-		_max_value = n;
-		_min_value = n;
-		_premin_value = n;
-	}
-	else if (_size > 1)
-	{
-		if (n > _max_value)
-			_max_value = n;
-		if (n < _min_value)
-		{
-			_premin_value = _min_value;
-			_min_value = n;
-		}
-		else if (n < _premin_value)
-		{
-			_premin_value = n;
-		}
-	}
+	_sorted.insert(n);
+	_size++;	
 }
 
 long long int	Span::shortestSpan()
 {
 	if (_size < 2)
 		throw std::runtime_error("Not enough numbers to find a span");
-	else if (_size == 2)
-		return ((std::llabs((static_cast<long long int>(_vec[1]) - static_cast<long long int>(_vec[0])))));
-	else
-		return ((std::llabs(static_cast<long long int>(_min_value) - static_cast<long long int>(_premin_value))) - 1);
+	long long minDiff = LLONG_MAX;
+	for (std::multiset<int>::iterator it = _sorted.begin(), next = ++_sorted.begin(); next != _sorted.end(); ++it, ++next)
+	{
+		long long diff = static_cast<long long>(*next) - *it;
+		if (diff < minDiff)
+			minDiff = diff;
+	}
+    return minDiff;
 }
 
 long long int	Span::longestSpan()
 {
 	if (_size < 2)
 		throw std::runtime_error("Not enough numbers to find a span");
-	else if (_size == 2)
-		return (std::llabs(static_cast<long long int>(_vec[1]) - static_cast<long long int>(_vec[0])));
-	else
-		return (std::llabs(static_cast<long long int>(_max_value) - static_cast<long long int>(_min_value)));
+	return (std::llabs(static_cast<long long int>(*(_sorted.rbegin())) - static_cast<long long int>(*(_sorted.begin()))));
 }
 
 
