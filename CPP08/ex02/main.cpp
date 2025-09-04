@@ -1,9 +1,10 @@
 #include <iostream>
+#include <list>
 #include "MutantStack.hpp"
 
 int main()
 {
-	std::cout << " 	~Test Mutant Stack~" << std::endl;
+	std::cout << " 	~Test Mutant Stack (subject tests)~" << std::endl;
 
 	MutantStack<int> mstack;
 	mstack.push(5);
@@ -26,7 +27,43 @@ int main()
 		++it;
 	}
 	std::stack<int> s(mstack);
+	// mstack.printStack("mstack");
 
+	std::cout << "\n 	~Compare with list~" << std::endl;
+	std::list<int> mlist;
+	mlist.push_back(5);
+	mlist.push_back(17);
+	std::cout << mlist.back() << std::endl;
+	mlist.pop_back();
+	std::cout << mlist.size() << std::endl;
+	mlist.push_back(3);
+	mlist.push_back(5);
+	mlist.push_back(737);
+	//[...]
+	mlist.push_back(0);
+	std::list<int>::iterator itl = mlist.begin();
+	std::list<int>::iterator itle = mlist.end();
+	++itl;
+	--itl;
+	while (itl != itle)
+	{
+		std::cout << *itl << std::endl;
+		++itl;
+	}
+	std::list<int> l(mlist);
+
+
+	std::cout << "\n 	~Test Mutant Stack (my tests)~" << std::endl;
+	s.push(42);
+	std::cout << "After pushing 42 to s: ";
+	mstack.printStack("mstack");
+	std::cout << "s: ";
+	while (!s.empty())
+	{
+		std::cout << s.top() << " ";
+		s.pop();
+	}
+	std::cout << std::endl;
 	
 	return 0;
 }

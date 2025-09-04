@@ -14,7 +14,7 @@ public:
 	T		top() const;
 	int		size() const;
 
-	void	printStack() const;
+	void	printStack(std::string name) const;
 
 	/*Constructors*/
 	MutantStack();

@@ -25,6 +25,20 @@ int MutantStack<T>::size() const
 }
 
 template <typename T>
+void MutantStack<T>::printStack(std::string name) const
+{
+    std::cout << name << ": [ ";
+    typename MutantStack<T>::const_iterator it = this->c.begin();
+    while (it != this->c.end()) {
+        std::cout << *it;
+        ++it;
+        if (it != this->c.end())
+            std::cout << ", ";
+    }
+    std::cout << " ]" << std::endl;
+}
+
+template <typename T>
 MutantStack<T>::MutantStack() : std::stack<T>()
 {
 }
